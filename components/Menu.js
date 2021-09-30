@@ -1,13 +1,13 @@
 // This is the data we will be using, study it but don't change anything, yet.
 
-// let menuItems = [
-//   'Students',
-//   'Faculty',
-//   "What's New",
-//   'Tech Trends',
-//   'Music',
-//   'Log Out'
-// ];
+let menuItems = [
+  'Students',
+  'Faculty',
+  "What's New",
+  'Tech Trends',
+  'Music',
+  'Log Out'
+];
 
 /* 
   Step 1: Write a component called 'menuMaker' to create a menu like the markup below:
@@ -31,3 +31,49 @@
 
   Step 6: Use 'menuMaker' to create a menu using the 'menuItems' array, and append the returned menu to the header.
 */
+
+function menuMaker (array) {
+
+  // ***** Step 1 *****
+
+  const menu = document.createElement('div');
+  menu.classList.add('menu');
+  const unorderedList = document.createElement('ul');
+
+  // ***** Step 2 *****
+
+  array.forEach (index => { // index parameter are the items inside the array
+    const listItems = document.createElement('li'); // assigning the items inside the array the element tag 'li'  
+    listItems.textContent = index // putting textContext inside listItems
+    unorderedList.appendChild(listItems);
+    console.log(listItems);
+  })
+
+  // ***** Step 3 *****
+
+  const menuButton = document.querySelector('.menu-button')
+  menuButton.appendChild(menu);
+  
+  // ***** Step 4 *****
+
+  menuButton.addEventListener('click', () => { // Element.JavaScriptFunction ( 'event type' , function () ) 
+    menu.classList.toggle('menu--open');
+    menu.appendChild(unorderedList);
+  }) 
+
+  
+  
+  // ***** Step 5 *****
+
+  return menu;
+
+}
+const newMenu = menuMaker(menuItems);
+console.log(newMenu);
+
+const header = document.querySelector('.header');
+header.appendChild(newMenu);
+
+
+
+
