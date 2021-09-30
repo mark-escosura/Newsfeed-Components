@@ -98,23 +98,77 @@ const data = [
     <h2>{title of the article}</h2>
     <p class="date">{date of the article}</p>
 
-    {three separate paragraph elements}
+    {three separate paragraph elements} // is this a child element of the class 'date'?
 
     <span class="expandButton">+</span>
   </div>
 
+
   Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
   This listener should toggle the class 'article-open' on div.article.
 
+
   Step 3: Don't forget to return something from your function!
+
 
   Step 4: Outside your function now, loop over the data. At each iteration you'll use your component
   to create a div.article element and append it to the DOM inside div.articles (see index.html).
+
 
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
 
-function articleMaker () {
+const articles = document.querySelector ('.articles'); // how would you explain this line of code?
+
+function articleMaker ({ title, date, firstParagraph, secondParagraph, thirdParagraph }) {
   
+  const article = document.createElement('div'); // article is an element Object
+  const articleTitle = document.createElement('h2');
+  const articleDate = document.createElement('p');
+  const articleParagraphOne = document.createElement('p');
+  const articleParagraphTwo = document.createElement('p');
+  const articleParagraphThree = document.createElement('p');
+  const articleButtons = document.createElement('span');
+
+  article.appendChild(articleTitle);
+  article.appendChild(articleDate);
+  article.appendChild(articleParagraphOne);
+  article.appendChild(articleParagraphTwo);
+  article.appendChild(articleParagraphThree);
+  article.appendChild(articleButtons);
+
+  article.classList.add('article');
+  articleDate.classList.add('date');
+  articleParagraphOne.classList.add('text-one');
+  articleParagraphTwo.classList.add('text-two');
+  articleParagraphThree.classList.add('text-three');
+  articleButtons.classList.add('expandButton');
+
+  articleTitle.textContent = title;
+  articleDate.textContent = date;
+  articleParagraphOne.textContent = firstParagraph;
+  articleParagraphTwo.textContent = secondParagraph;
+  articleParagraphThree.textContent = thirdParagraph;
+  articleButtons.textContent = '+';
+
+  articleButtons.addEventListener('click', () => { // Elem.JavaSc
+    article.classList.toggle('article-open');
+  }) 
+
+  return article;
+
 }
+
+const articleElements = data.map(elem => {
+  return articleMaker(elem); //passing each element one at a time
+})
+
+console.log(articleElements);
+
+articleElements.forEach(elemToAdd => {
+  articles.appendChild(elemToAdd);
+})
+
+// const testArticle = articleMaker({ title: 'foo', date: 'bar', firstParagraph: 'asd', secondParagraph: 'dsa', thirdParagraph:'mam' });
+// console.log(testArticle);
